@@ -1,0 +1,21 @@
+counter=0
+longestCount=0
+string = ""
+s='axyz'
+for i in range(len(s)+1):
+ if (i+counter)>=len(s):
+       break 
+ elif len(s) ==1:
+     string = s
+ else:
+  while s[i] <= s[i+counter]: #for some reason this operation isn't ordering alphabetically
+    counter+=1
+    if (i+counter)>=len(s):
+       break
+    elif len(s[i:i+counter]) >= len(s[i:i+longestCount]):
+     longestCount=counter
+     string = s[i:i+longestCount+1]
+    elif longestCount == 1:
+     string = s[i]
+     
+print(string)
