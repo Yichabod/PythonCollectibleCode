@@ -1,0 +1,24 @@
+def minimumMonthlyInterest(balance, annualInterestRate):
+  """This function uses bisection search to find the minimum monthly payment according to an annually
+  compounding interest rate
+  """
+    monthlyInterestRate = annualInterestRate/12
+    high = (balance*(1+monthlyInterestRate)**12)/12
+    low = balance/12    #this is the minimum bound since the monthly payment can't be less than 1/12 of bal
+    nBalance = balance  #nBalance can be modified while balance stays the same
+    balPaid = False
+
+    while (not balPaid):
+      nBalance = balance
+      lowPay = (high+low) / 2
+      for month in range(1,13):
+         nBalance -= lowPay
+         nBalance = nBalance*monthlyInterestRate + nBalance
+      if nBalance < 0.01 and nBalance > -0.01: #this is the boundary that indicates balance has been paid
+         balPaid = True
+      elif nBalance > 0.01:
+         low = lowPay
+      elif nBalance < -0.01:
+         high = lowPay
+    ans = ("Lowest Monthly Payment: " + str(round(lowPay,2)))
+    return ans
