@@ -1,0 +1,31 @@
+"""Assume s is a string of lower case characters.
+
+Write a program that prints the longest substring of s in which the letters occur in alphabetical order. 
+For example, if s = 'azcbobobegghakl', then your program should print
+Longest substring in alphabetical order is: beggh
+In the case of ties, print the first substring. For example, if s = 'abcbcd', then your program should print
+
+Longest substring in alphabetical order is: abc"""
+
+def alphString(s):    #where s is the input string
+ counter=0
+ longestCount=0
+ string = ""
+ for i in range(len(s)+1):
+  if (i+counter)>=len(s):
+        break 
+  elif len(s) ==1:
+      string = s
+  else:
+   while s[i] <= s[i+counter]: #for some reason this operation isn't ordering alphabetically
+     counter+=1
+     if (i+counter)>=len(s):
+        break
+     elif len(s[i:i+counter]) >= len(s[i:i+longestCount]):
+      longestCount=counter
+      string = s[i:i+longestCount+1]
+     elif longestCount == 1:
+      string = s[i]
+ return string
+
+ 
