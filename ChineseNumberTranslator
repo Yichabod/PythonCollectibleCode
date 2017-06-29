@@ -1,0 +1,28 @@
+"""
+This code translates a string representing an integer (i.e. '34') into a chinese numeral, up to 99.
+"""
+
+ntrans = {'0':'零', '1':'一', '2':'二', '3':'三', '4': '四',
+          '5':'五', '6':'六', '7':'七', '8':'八', '9':'九', '10': '十'}
+
+def convert_to_mandarin(num):
+    '''
+    us_num, a string representing an integer from 0 to 99
+    returns the string mandarin representation of us_num
+    '''
+
+    ans = ""
+    if len(num) == 2:
+        if num[0] > '1' and num[1] != '0':
+            ans = ntrans[num[0]] + '十'
+            ans += ntrans[num[1]]
+        elif num[0] == '1' and num[1] != '0':
+            ans = '十' + ntrans[num[1]]
+        elif num[1] == '0':
+            if num[0] == '1':
+                ans = '十'
+            elif num[0] != '1':
+                ans = ntrans[num[0]] + ' shi'
+    elif len(num) == 1:
+        ans = ntrans[num[0]]
+    return ans
