@@ -1,0 +1,51 @@
+def brute_force_cow_transport(cows, limit=10):
+  """Generates all possible methods of trips and tests to see which ones work
+  and then which requires the fewest number of individual trips; assumes cows is dict
+ 
+    Parameters:
+    cows - a dictionary of name (string), weight (int) pairs
+    limit - weight limit of the spaceship (an int)
+    
+    Returns:
+    A list of lists, with each inner list containing the names of cows
+    transported on a particular trip and the overall list containing all the
+    trips
+    
+    Note that this would work for any transport/knapsack type problem where there is a known limit and items
+    that can be added to a container to reach the limit (i.e. each item's addition doesn't effect the others'
+    magnitude)
+  """
+  dList = []
+  bestTrip = []
+  possibleTrip = []
+  temp = []
+  for key in cows.keys(): 
+    dList.append(key)
+
+  def flatten(S):
+    if S == []:
+        return S
+    if isinstance(S[0], list):
+        return flatten(S[0]) + flatten(S[1:])
+    return S[:1] + flatten(S[1:])
+    
+  for partition in get_partitions(dList):
+    for elt in partition:
+      if len(elt) > 1:
+        testWeight = 0
+        for k in elt:
+          testWeight += cows[k]
+          
+        if testWeight <= limit:
+          possibleTrip.append(elt) 
+      else:
+        possibleTrip.append(elt)
+    if len(flatten(possibleTrip)) == len(dList): #needs to be changed so it's summing the weight of each cow
+      if len(bestTrip) == 0:
+        bestTrip = possibleTrip
+      elif len(possibleTrip) < len(bestTrip):
+        bestTrip = possibleTrip
+    possibleTrip = []
+  return bestTrip
+  
+
