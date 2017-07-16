@@ -1,0 +1,36 @@
+"""
+Task: Given a letter string such as 'abc', permute all the possibilities, allowing for upper/lowercase
+variation.
+"""
+import itertools
+
+def PermuteLetterString(x):
+    base = x.lower()
+    ans = []
+
+    temp = sorted(base)
+
+    for m in range(len(x)):
+        t = list(itertools.combinations(temp, m))
+
+        for n in t:
+            if len(n) != 0:
+
+                for o in range(len(n)):
+
+                    if n[o] in temp:
+                        temp.remove(n[o])
+                        temp.append(n[o].upper())
+                ans.append(sorted(temp))
+
+                temp = sorted(base)
+    preans = ans[:]
+    for a in preans:
+        replace = ''.join(a)
+        ans.remove(a)
+        ans.append(replace)
+    ans.append(base)
+    ans.append(base.upper())
+
+
+    return ans
