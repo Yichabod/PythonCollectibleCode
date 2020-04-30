@@ -1,0 +1,23 @@
+"""This is a programme that's supposed to be able to guess your secret number"""
+
+print('Please think of a number between 0 and 100!')
+print('Is your secret number 50?')
+response = input(" Enter 'h' to indicate the guess is too high. Enter 'l' to indicate the guess is too low. Enter 'c' to indicate I guessed correctly.")
+guess = 50
+
+while response == "l" or "h" or "c":
+  if response == "l": 
+   guess = int(round(guess*1.5))
+   print('Is your secret number', guess, end='?')
+   response = input("Enter 'h' to indicate the guess is too high. Enter 'l' to indicate the guess is too low. Enter 'c' to indicate I guessed correctly.")
+  if response == "h":
+   guess = int(guess/2)
+   print('Is your secret number', guess, end='? ')
+   response = input("Enter 'h' to indicate the guess is too high. Enter 'l' to indicate the guess is too low. Enter 'c' to indicate I guessed correctly.")
+  
+  if response == "c":
+   print('Game over. Your secret number is ',end=str(guess))
+   break
+  if response != "h" or response != "l" or response != "c":
+   print('Sorry, I did not understand your input.')
+   input("Enter 'h' to indicate the guess is too high. Enter 'l' to indicate the guess is too low. Enter 'c' to indicate I guessed correctly.")
